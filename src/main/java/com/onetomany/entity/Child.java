@@ -3,9 +3,12 @@
  */
 package com.onetomany.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.ForeignKey;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -14,8 +17,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author sumit
  *
  */
+
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class Child {
 
 	@Id
@@ -23,14 +27,14 @@ public class Child {
 	
 	private String name;
 	
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="parent_id")
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JsonIgnore		
 	private Parent parent;
 	
-	
-	@OneToMany(mappedBy="child",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<SubChild> subChild;
+	@JoinColumn(name="child_id")
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<SubChild> subChild = new ArrayList<>();
 
 	public Child() {
 		super();

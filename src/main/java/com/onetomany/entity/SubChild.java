@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
+//@JsonIgnoreProperties(ignoreUnknown=true)
 public class SubChild {
 
 	@Id
@@ -21,9 +21,8 @@ public class SubChild {
 	
 	private String name;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JsonIgnore
-	@JoinColumn(name="child_id")
 	private Child child;
 
 	public SubChild() {

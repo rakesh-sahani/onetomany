@@ -3,6 +3,7 @@
  */
 package com.onetomany.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  *
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
 public class Parent {
 
 	@Id
@@ -22,8 +22,9 @@ public class Parent {
 	
 	private String name;
 	
-	@OneToMany(mappedBy="parent",cascade = CascadeType.ALL,fetch=FetchType.LAZY)
-	private List<Child> child;
+	@JoinColumn(name="parent_id")
+	@OneToMany(cascade = CascadeType.ALL,fetch=FetchType.LAZY)
+	private List<Child> child = new ArrayList<>();
 
 	public Parent() {
 		super();
